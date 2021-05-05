@@ -14,26 +14,31 @@
 #define NODE_NUMBER 7   //child = number
 
 //2 children
-#define NODE_CONJUNCTION 5  //child 1 = node, child 2 = node
-#define NODE_DISJUNCTION 20
-#define NODE_IMPLICATION 35
-#define NODE_EQUIVALENT 50
-#define NODE_ALL 11          //child 1 = symbol table entry, child 2 = node
-#define NODE_EXIST 26        
-#define NODE_PREDICATE 41 
-#define NODE_FUNCTION 56    
-#define NODE_ARGUMENT 13
+#define NODE_CONJUNCTION 20  //child 1 = node, child 2 = node
+#define NODE_DISJUNCTION 50
+#define NODE_IMPLICATION 80
+#define NODE_EQUIVALENT 110
+#define NODE_ALL 26          //child 1 = symbol table entry, child 2 = node
+#define NODE_EXIST 56        
+#define NODE_PREDICATE 86 
+#define NODE_FUNCTION 116    
+#define NODE_ARGUMENT 5    //child 1 = symbol table entry
 
 /* 
-The number for each node type is assigned according to a system. 
+The defined number for each node_type is assigned according to a system. 
 The C Program uses modulo operations to calculate number of children and type of children nodes
-Node Type % 3 = Number of children
-    Node_Type % 3 == 0 -> 0 children
-    Node_Type % 3 == 1 -> 1 children
-    Node_Type % 3 == 2 -> 2 children
-Node Type % 5 = Types of the children
-    Node_Type % 5 == 0 -> all children are nodes
-    Node_Type % 5 == 1 -> first child is symbol table entry, second child is node
-    Node_Type % 5 == 2 -> first child is number second child does not exists
-    Node_Type % 5 == 3 -> first child is simbol table entry, second child is rest of argument list 
+
+Node_Type % 3 = Number of Children
+    0: 0 children
+    1: 1 child
+    2: 2 children
+Node_Type % 5 = Type of Child 1
+    0: Child 1 is another Node
+    1: Child 1 is symbol table entry
+    2: Child 1 is Number
+    3: Not used
+    4: Not used
+Node_Type % 2 = Type of Child 2
+    0: Child 2 is another Node
+    1: Child 2 is another Item in Argument list
 */
