@@ -41,69 +41,68 @@ void* make_number_node(int number) {
 void print_syntax_tree(void* root_node) {
     fprintf(stdout, "\n--- PRINT SYNTAX TREE ---\n\n");
     node* node_pointer = ((node*)root_node);
-    print_node_and_children(node_pointer, 0);
+    print_node_and_children(node_pointer, 0, 1);
 }
 
-void print_single_node(node* node, int level) {
+void print_single_node(node* node, int level, int print_dots) {
     if(node == NULL) { return; }
     
-    for(int i = 0; i < level; i++) {
-        fprintf(stdout, ".");
+    for(int i = 0; i < level && print_dots == 1; i++) {
+        fprintf(stdout, ". ");
     }
     switch(node->node_type) {
         //Only print Name of Node
-        case NODE_TRUE: fprintf(stdout, "TRUE\n"); return;
-        case NODE_FALSE: fprintf(stdout, "FALSE\n"); return;
-        case NODE_NEGATION: fprintf(stdout, "NOT\n"); return;
-        case NODE_CONJUNCTION: fprintf(stdout, "AND\n"); return;
-        case NODE_DISJUNCTION: fprintf(stdout, "OR\n"); return;
-        case NODE_IMPLICATION: fprintf(stdout, "IMPLICATION\n"); return;
-        case NODE_EQUIVALENT: fprintf(stdout, "EQUIVALENT\n"); return;
-
-        // more complex nodes
-        case NODE_VARIABLE: {
-            char* variable_name = ((entry*)node->child1)->identifier;
-            fprintf(stdout, "VARIABLE: %s\n", variable_name);
+        case NODE_TRUE: 
+            fprintf(stdout, "TRUE\n"); 
             return;
-        }
-
-        case NODE_NUMBER: {            
-            int* number = (int*)node->child1;
-            fprintf(stdout, "NUMBER: %d\n", *number);
+        case NODE_FALSE: 
+            fprintf(stdout, "FALSE\n"); 
             return;
-        }
-        case NODE_ALL: {
-            char* variable_name = ((entry*)node->child1)->identifier;
-            fprintf(stdout, "ALL: %s\n", variable_name); 
+        case NODE_NEGATION: 
+            fprintf(stdout, "NOT\n"); 
             return;
-        }
-        case NODE_EXIST: {
-            char* variable_name = ((entry*)node->child1)->identifier;
-            fprintf(stdout, "EXIST: %s\n", variable_name); 
+        case NODE_CONJUNCTION: 
+            fprintf(stdout, "AND\n"); 
             return;
-        }
-
-        case NODE_PREDICATE: {
-            char* predicate_name = ((entry*)node->child1)->identifier;
-            fprintf(stdout, "PREDICATE: %s\n", predicate_name);
+        case NODE_DISJUNCTION: 
+            fprintf(stdout, "OR\n"); 
             return;
-        }
-        case NODE_FUNCTION: {
-            char* function_name = ((entry*)node->child1)->identifier;
-            fprintf(stdout, "FUNCTION: %s\n", function_name);
+        case NODE_IMPLICATION: 
+            fprintf(stdout, "IMPLICATION\n"); 
             return;
-        }
-        case NODE_ARGUMENT: {
-            fprintf(stdout, "ARGUMENT: ");
-            print_single_node(node->child1,0);
+        case NODE_EQUIVALENT: 
+            fprintf(stdout, "EQUIVALENT\n"); 
             return;
-        }
+        case NODE_VARIABLE: 
+            fprintf(stdout, "VARIABLE: ");
+            return;
+        case NODE_CONSTANT: 
+            fprintf(stdout, "CONSTANT: ");
+            return;
+        case NODE_NUMBER:          
+            fprintf(stdout, "NUMBER: ");
+            return;
+        case NODE_ALL:
+            fprintf(stdout, "ALL: "); 
+            return;
+        case NODE_EXIST:
+            fprintf(stdout, "EXIST: "); 
+            return;
+        case NODE_PREDICATE:
+            fprintf(stdout, "PREDICATE: ");
+            return;
+        case NODE_FUNCTION:
+            fprintf(stdout, "FUNCTION: ");
+            return;
+        case NODE_ARGUMENT:
+            // dont print anything. algorithm will autonatically print children
+            return;
     }
 }
 
-void print_node_and_children(node* node_pointer, int level) {
+void print_node_and_children(node* node_pointer, int level, int print_dots) {
     if(node_pointer == NULL) { return; }
-    print_single_node(node_pointer, level);
+    print_single_node(node_pointer, level, print_dots);
 
     //use modulo operations to calculate number and type of children
     // see ../additional/define.h for more information
@@ -115,30 +114,43 @@ void print_node_and_children(node* node_pointer, int level) {
         //print first child
         switch (child_type1) {
             case 0: {
+                //print child1 recursive
                 node* child1 = (node*)node_pointer->child1;
-                print_node_and_children(child1, level+1);
+                print_node_and_children(child1, level+1, 1);
                 break;
             }
             case 1: {
-                //do nothing else, because first child is not a node
+                //print symbol table entry
+                entry* symbol = (entry*)node_pointer->child1;
+                fprintf(stdout, "%s\n", symbol->identifier);
+                break;
             }
             case 2: {
-                //do nothing else, because first child is not a node
+                //print value of number node
+                int* number = (int*)node_pointer->child1;
+                fprintf(stdout, "%d\n", *number);
+                break;
+            }
+            case 3: {
+                //print type and value of argument. Set level to 0 to prevent printing dots
+                node* child1 = (node*)node_pointer->child1;
+                print_node_and_children(child1, level, 0);
+                break;
             }
         }
     }
     if(num_children >= 2) {
         switch (child_type2) {
             case 0: {
-                //print right hand side tree
+                //print child2 recursive
                 node* child2 = (node*)node_pointer->child2;
-                print_node_and_children(child2, level+1);
+                print_node_and_children(child2, level+1, 1);
                 break;
             }
             case 1: {
                 //print rest of argument list
                 node* child2 = (node*)node_pointer->child2;
-                print_node_and_children(child2, level);
+                print_node_and_children(child2, level, 1);
                 break;
             }
         }

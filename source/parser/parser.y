@@ -192,11 +192,10 @@ multiple_terms:
     term {
         $$ = make_binary_node(NODE_ARGUMENT, $1, NULL);
     }
-    | multiple_terms COMMA term {
-        $$ = $1;
+    | term COMMA multiple_terms {
         //set second child of term to term list to link the arguments
-        void* new_argument = (void*)make_binary_node(NODE_ARGUMENT, $3, NULL);
-        ((node*)$$)->child2 = new_argument;
+        void* new_argument = (void*)make_binary_node(NODE_ARGUMENT, $1, $3);
+        $$ = new_argument;
     }
 ;
 
@@ -232,12 +231,15 @@ term:
             fprintf(stderr,"PAR: unknown identifier %s", $1);
             return 1;
         }
-        if(identifier->type == DECLARATION_VARIABLE || (identifier->type == DECLARATION_FUNCTION && identifier->arity == 0)) {
+        if(identifier->type == DECLARATION_VARIABLE ) {
             fprintf(stderr, "PAR: Term of type variable or constant: %s\n", $1);
             $$ = make_binary_node(NODE_VARIABLE, (void*)get_symbol_entry($1), NULL);
         }
+        else if(identifier->type == DECLARATION_FUNCTION && identifier->arity == 0) {
+            fprintf(stderr, "PAR: Term of type variable or constant: %s\n", $1);
+            $$ = make_binary_node(NODE_CONSTANT, (void*)get_symbol_entry($1), NULL);
+        }
         else {
-            //symbol is not a variable and not a constant
             fprintf(stderr,"PAR: identifier %s is not a variable and not a constant", $1);
             return 1;
         }
