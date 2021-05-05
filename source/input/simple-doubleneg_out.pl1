@@ -1,0 +1,7 @@
+/* Created by PL1C */
+
+DECLARE PREDICATE P          : 0
+DECLARE PREDICATE Q          : 0
+
+~P() | Q() ;
+

@@ -1,0 +1,9 @@
+/* Test Input File */
+
+DECLARE PREDICATE P : 1
+DECLARE VARIABLE x : int 
+
+~ALL[x]P(x) ;
+
+
+

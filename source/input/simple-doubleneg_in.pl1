@@ -1,0 +1,8 @@
+/* Test Input File */
+
+DECLARE PREDICATE P : 0 
+DECLARE PREDICATE Q : 0 
+
+~~P() -> Q() ;
+
+

@@ -1,0 +1,10 @@
+/* Transient Aufgabe */
+
+DECLARE PREDICATE R : 2
+DECLARE VARIABLE x : int 
+DECLARE VARIABLE y : int
+DECLARE VARIABLE z : int
+
+ALL[x]ALL[y]ALL[z](R(x,y) & R(y,z) -> R(x,z));
+
+

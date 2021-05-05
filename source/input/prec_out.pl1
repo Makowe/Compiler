@@ -1,0 +1,9 @@
+/* Created by PL1C */
+
+DECLARE PREDICATE A          : 0
+DECLARE PREDICATE B          : 0
+DECLARE PREDICATE C          : 0
+DECLARE VARIABLE  x          : int
+
+(~A() | B() | C()) & (~A() | B()) & EXIST[x]A() | B() & C() ;
+

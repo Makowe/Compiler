@@ -1,0 +1,9 @@
+/* Test Input File */
+
+DECLARE PREDICATE A : 0 
+DECLARE PREDICATE B : 0
+
+A() -> B() ;
+
+
+

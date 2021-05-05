@@ -1,0 +1,22 @@
+/* Maeuse Aufgabe */
+
+DECLARE PREDICATE Hund : 1
+DECLARE PREDICATE Katze : 1 
+DECLARE PREDICATE Maus : 1
+DECLARE PREDICATE hat  : 2
+DECLARE PREDICATE bellt  : 1
+DECLARE PREDICATE leicht : 1
+DECLARE FUNCTION Julia : 0
+DECLARE VARIABLE x : int 
+DECLARE VARIABLE y : int
+DECLARE VARIABLE z : int
+
+ALL[x](Hund(x) -> bellt(x)) &
+ALL[x]ALL[y](hat(x,y) & Katze(y) -> ~EXIST[z](hat(x,z) & Maus(z))) &
+ALL[x](leicht(x) -> ~EXIST[y](hat(x,y) & bellt(y))) &
+EXIST[x](hat(Julia,x) & (Hund(x) | Katze(x))) &
+~(leicht(Julia) -> ~EXIST[x](hat(Julia,x) & Maus(x))) ;
+
+
+
+

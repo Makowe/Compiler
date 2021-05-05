@@ -1,0 +1,19 @@
+CC= gcc
+LEX= flex
+YACC= bison
+
+all: parse
+	
+parser.tab.c: parser.y
+	$(YACC) -d parser.y
+
+parser.tab.h: parser.y
+	$(YACC) -d parser.y
+	
+scanner.c: scanner.l parser.tab.h
+	$(LEX) -t scanner.l > scanner.c
+	
+parser.tab.o: parser.tab.c
+
+parse: scanner.o parser.tab.o
+	$(CC) scanner.o parser.tab.o -o parse	

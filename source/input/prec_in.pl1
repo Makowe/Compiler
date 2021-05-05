@@ -1,0 +1,11 @@
+/* Test Input File */
+
+DECLARE PREDICATE A : 0 
+DECLARE PREDICATE B : 0 
+DECLARE PREDICATE C : 0
+DECLARE VARIABLE x : int
+
+
+A() & ~B() & ~C() | A() & ~B() | ALL[x]~A() -> B() & C() ;
+
+

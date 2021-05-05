@@ -1,0 +1,7 @@
+/* Created by PL1C */
+
+DECLARE PREDICATE A          : 0
+DECLARE PREDICATE B          : 0
+
+A() & B() | ~A() & ~B() ;
+

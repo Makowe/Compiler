@@ -1,0 +1,18 @@
+/* Kuerbis Aufgabe */
+
+DECLARE PREDICATE Kauft : 2
+DECLARE PREDICATE Kuerbis : 1 
+DECLARE PREDICATE Kind : 1
+DECLARE PREDICATE Isst  : 2
+DECLARE PREDICATE Schnitzt  : 2
+DECLARE FUNCTION Tim : 0
+DECLARE VARIABLE x : int 
+DECLARE VARIABLE y : int
+
+EXIST[x](Kauft(Tim,x) & Kuerbis(x)) &
+ALL[x]ALL[y](Kauft(x,y) & Kuerbis(y) -> Isst(x,y) | Schnitzt(x,y)) &
+ALL[x](Kind(x) -> ALL[y](Kuerbis(y) -> ~Isst(x,y))) &
+ ~(Kind(Tim) -> EXIST[x]Schnitzt(Tim,x)) ;
+
+
+

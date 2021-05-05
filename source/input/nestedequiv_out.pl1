@@ -1,0 +1,8 @@
+/* Created by PL1C */
+
+DECLARE PREDICATE P          : 1
+DECLARE PREDICATE Q          : 1
+DECLARE VARIABLE  x          : int
+
+(ALL[x]P(x) & EXIST[x]P(x) | EXIST[x]~P(x) & ALL[x]~P(x)) & ALL[x](Q(x) & P(x) | ~Q(x) & ~P(x)) | (EXIST[x]~P(x) | ALL[x]~P(x)) & (ALL[x]P(x) | EXIST[x]P(x)) & EXIST[x]((~Q(x) | ~P(x)) & (Q(x) | P(x))) ;
+

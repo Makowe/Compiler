@@ -1,0 +1,7 @@
+/* Created by PL1C */
+
+DECLARE PREDICATE P          : 1
+DECLARE VARIABLE  x          : int
+
+EXIST[x]~P(x) ;
+

@@ -1,0 +1,9 @@
+SYM: New Entry: P1: 0, type: 0, varType: (null)
+SYM: New Entry: P2: 1, type: 0, varType: (null)
+SYM: New Entry: P3: 3, type: 0, varType: (null)
+SYM: New Entry: c: 0, type: 1, varType: (null)
+SYM: New Entry: f: 1, type: 1, varType: (null)
+SYM: New Entry: g: 2, type: 1, varType: (null)
+SYM: New Entry: x: 0, type: 2, varType: int
+SYM: New Entry: y: 0, type: 2, varType: int
+SYM: New Entry: z: 0, type: 2, varType: int
