@@ -71,7 +71,7 @@ struct entry* get_symbol_entry(char* identifier) {
 
 void print_entries() {
 
-    fprintf(stdout,"SYM: Printing all Symbols\n");
+    fprintf(stdout,"\n--- PRINT ALL SYMBOLS ---\n\n");
     entry* current = firstEntry;
     
     while(current != NULL) {

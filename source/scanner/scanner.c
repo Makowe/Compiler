@@ -1991,6 +1991,7 @@ int main( int argc, char** argv) {
     else {
         yyin = stdin;
     }
+    fprintf(stdout, "\n--- START PARSING ---\n\n");
     yyparse();
     fclose(yyin);
     return 0;

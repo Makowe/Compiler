@@ -2,18 +2,23 @@ CC= gcc
 LEX= flex
 YACC= bison
 
-all: parse
-	
-parser.tab.c: parser.y
-	$(YACC) -d parser.y
+all: parser scanner compile link
 
-parser.tab.h: parser.y
-	$(YACC) -d parser.y
-	
-scanner.c: scanner.l parser.tab.h
-	$(LEX) -t scanner.l > scanner.c
-	
-parser.tab.o: parser.tab.c
+parser:
+	@$(YACC) -d parser/parser.y
+	@mv parser.tab.c parser/parser.tab.c
+	@mv parser.tab.h parser/parser.tab.h
 
-parse: scanner.o parser.tab.o
-	$(CC) scanner.o parser.tab.o -o parse	
+scanner:
+	@$(lex) -t scanner/scanner.l > scanner/scanner.c
+
+compile:
+	@gcc -c -o bin/scanner.o scanner/scanner.c
+	@gcc -c -o bin/parser.tab.o parser/parser.tab.c
+	@gcc -c -o bin/symboltable.o symboltable/symboltable.c
+	@gcc -c -o bin/syntaxtree.o syntaxtree/syntaxtree.c
+	@echo "compilation successful"
+
+link:
+	@gcc bin/scanner.o bin/symboltable.o bin/syntaxtree.o bin/parser.tab.o -o pl
+	@echo "linking successful.\nCall './pl input/filename.pl' to run the program"
