@@ -190,12 +190,13 @@ formula:
 
 multiple_terms:
     term {
-        $$ = $1;
+        $$ = make_binary_node(NODE_ARGUMENT, $1, NULL);
     }
-    | term COMMA multiple_terms {
+    | multiple_terms COMMA term {
         $$ = $1;
         //set second child of term to term list to link the arguments
-        ((node*)$$)->child2 = $3;
+        void* new_argument = (void*)make_binary_node(NODE_ARGUMENT, $3, NULL);
+        ((node*)$$)->child2 = new_argument;
     }
 ;
 
@@ -233,7 +234,7 @@ term:
         }
         if(identifier->type == DECLARATION_VARIABLE || (identifier->type == DECLARATION_FUNCTION && identifier->arity == 0)) {
             fprintf(stderr, "PAR: Term of type variable or constant: %s\n", $1);
-            $$ = make_binary_node(NODE_ARGUMENT, (void*)get_symbol_entry($1), NULL);
+            $$ = make_binary_node(NODE_VARIABLE, (void*)get_symbol_entry($1), NULL);
         }
         else {
             //symbol is not a variable and not a constant

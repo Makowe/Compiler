@@ -10,6 +10,4 @@ DECLARE VARIABLE x : int
 DECLARE VARIABLE y : int
 DECLARE VARIABLE z : int
 
-ALL[x]~(P1() | ~ P2(x)) & P2(1) -> ~(ALL[z]EXIST[y] ~ P3(c,f(z),g(13,y)) & TRUE) <-> ~ FALSE ;
-
-
+~~P3(c,x,g(f(x),z));

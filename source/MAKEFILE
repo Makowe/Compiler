@@ -5,12 +5,12 @@ YACC= bison
 all: parser scanner compile link
 
 parser:
-	@$(YACC) -d parser/parser.y
-	@mv parser.tab.c parser/parser.tab.c
-	@mv parser.tab.h parser/parser.tab.h
+	$(YACC) -d parser/parser.y
+	mv parser.tab.c parser/parser.tab.c
+	mv parser.tab.h parser/parser.tab.h
 
 scanner:
-	@$(lex) -t scanner/scanner.l > scanner/scanner.c
+	$(lex) -t scanner/scanner.l > scanner/scanner.c
 
 compile:
 	@gcc -c -o bin/scanner.o scanner/scanner.c

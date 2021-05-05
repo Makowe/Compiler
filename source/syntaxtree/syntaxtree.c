@@ -94,8 +94,8 @@ void print_single_node(node* node, int level) {
             return;
         }
         case NODE_ARGUMENT: {
-            char* argument_name = ((entry*)node->child1)->identifier;
-            fprintf(stdout, "ARGUMENT: %s\n", argument_name);
+            fprintf(stdout, "ARGUMENT: ");
+            print_single_node(node->child1,0);
             return;
         }
     }
@@ -108,32 +108,35 @@ void print_node_and_children(node* node_pointer, int level) {
     //use modulo operations to calculate number and type of children
     // see ../additional/define.h for more information
     int num_children = node_pointer->node_type % 3;
-    int children_types = node_pointer->node_type % 5;
-    int auto_increment_level = node_pointer->node_type != NODE_ARGUMENT;
+    int child_type1 = node_pointer->node_type % 5;
+    int child_type2 = node_pointer->node_type % 2;  
 
     if(num_children >= 1 ) {
         //print first child
-        switch (children_types) {
-            case 0:;
+        switch (child_type1) {
+            case 0: {
                 node* child1 = (node*)node_pointer->child1;
                 print_node_and_children(child1, level+1);
                 break;
-            default:
+            }
+            case 1: {
                 //do nothing else, because first child is not a node
-                break;
+            }
+            case 2: {
+                //do nothing else, because first child is not a node
+            }
         }
     }
     if(num_children >= 2) {
-        switch (children_types) {
-            case 0: //fallthrough
-            case 1: {
+        switch (child_type2) {
+            case 0: {
                 //print right hand side tree
                 node* child2 = (node*)node_pointer->child2;
                 print_node_and_children(child2, level+1);
                 break;
             }
-            case 4: {
-                //print right hand side tree but don't increase level
+            case 1: {
+                //print rest of argument list
                 node* child2 = (node*)node_pointer->child2;
                 print_node_and_children(child2, level);
                 break;
