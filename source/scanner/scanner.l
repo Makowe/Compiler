@@ -2,6 +2,9 @@
 
 %{
     #include "../parser/parser.tab.h"
+    #include "../symboltable/symboltable.h"
+    #include "../syntaxtree/syntaxtree.h"
+    #include "../printer/printer.h"
 %}
 
 EQUIVALENT      <->
@@ -136,15 +139,29 @@ int main( int argc, char** argv) {
     if(argc > 0) { 
         yyin = fopen( argv[0], "r");
         if(!yyin) {
-            fprintf(stderr, "Error while opening File");
+            fprintf(stderr, "Error while opening Input File");
             return 1;
         }
     }
     else {
-        yyin = stdin;
+        fprintf(stderr,"You have to type in a file name\nSyntax: ./pl input/example.pl\n");
+        return 1;
     }
     fprintf(stdout, "\n--- START PARSING ---\n\n");
     yyparse();
     fclose(yyin);
+    print_entries();
+    print_syntax_tree();
+
+    if(argc > 1) {
+        FILE* file = fopen(argv[1], "w+");
+        if(!file) {
+            fprintf(stderr, "Error while opening Output File");
+            return 1;
+        }
+        print_file(file);
+        fclose(file);
+    }
+
     return 0;
 }

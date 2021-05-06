@@ -92,3 +92,7 @@ void print_entries() {
         current = current->next;
     }
 }
+
+entry* get_first_entry() {
+    return firstEntry;
+}

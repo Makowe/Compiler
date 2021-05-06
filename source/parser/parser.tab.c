@@ -538,11 +538,11 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    41,    41,    48,    49,    54,    58,    62,    69,    84,
-      88,    92,    96,   100,   104,   108,   112,   116,   120,   124,
-     128,   132,   136,   140,   144,   148,   152,   156,   160,   164,
-     168,   172,   176,   180,   184,   192,   195,   203,   228,   247,
-     252
+       0,    41,    41,    47,    48,    53,    57,    61,    68,    83,
+      87,    91,    95,    99,   103,   107,   111,   115,   119,   123,
+     127,   131,   135,   139,   143,   147,   151,   155,   159,   163,
+     167,   171,   175,   179,   183,   191,   194,   202,   227,   246,
+     251
 };
 #endif
 
@@ -1384,41 +1384,40 @@ yyreduce:
 #line 41 "parser/parser.y"
                                    {
         fprintf(stdout, "--- PARSING FINISHED ---\n");
-        print_entries();
-        print_syntax_tree((yyvsp[-1].pointer));
+        set_root_node((yyvsp[-1].pointer));
     }
-#line 1391 "parser.tab.c"
+#line 1390 "parser.tab.c"
     break;
 
   case 5:
-#line 54 "parser/parser.y"
+#line 53 "parser/parser.y"
                                           {
         fprintf(stderr, "PAR: Declare Predicate %s with Arity %i\n", (yyvsp[-2].string), (yyvsp[0].number));
         add_entry(DECLARATION_PREDICATE, (yyvsp[0].number), (yyvsp[-2].string), NULL);
     }
-#line 1400 "parser.tab.c"
+#line 1399 "parser.tab.c"
     break;
 
   case 6:
-#line 58 "parser/parser.y"
+#line 57 "parser/parser.y"
                                            {
         fprintf(stderr, "PAR: Declare Function %s with Arity %i\n", (yyvsp[-2].string), (yyvsp[0].number));
         add_entry(DECLARATION_FUNCTION, (yyvsp[0].number), (yyvsp[-2].string), NULL);
     }
-#line 1409 "parser.tab.c"
+#line 1408 "parser.tab.c"
     break;
 
   case 7:
-#line 62 "parser/parser.y"
+#line 61 "parser/parser.y"
                                            {
         fprintf(stderr, "PAR: Declare Variable %s of Type %s\n", (yyvsp[-2].string), (yyvsp[0].string));
         add_entry(DECLARATION_VARIABLE, 0, (yyvsp[-2].string), (yyvsp[0].string));
     }
-#line 1418 "parser.tab.c"
+#line 1417 "parser.tab.c"
     break;
 
   case 8:
-#line 69 "parser/parser.y"
+#line 68 "parser/parser.y"
                                      {
         entry* identifier = get_symbol_entry((yyvsp[-2].string));
         if(identifier == NULL) {
@@ -1434,263 +1433,263 @@ yyreduce:
         fprintf(stderr, "PAR: Atom: %s\n", (yyvsp[-2].string));
 
     }
-#line 1438 "parser.tab.c"
+#line 1437 "parser.tab.c"
     break;
 
   case 9:
-#line 84 "parser/parser.y"
+#line 83 "parser/parser.y"
            {
         (yyval.pointer) = make_leaf_node(NODE_TRUE);
         fprintf(stderr, "PAR: True\n");
     }
-#line 1447 "parser.tab.c"
+#line 1446 "parser.tab.c"
     break;
 
   case 10:
-#line 88 "parser/parser.y"
+#line 87 "parser/parser.y"
             {
         (yyval.pointer) = make_leaf_node(NODE_FALSE);
         fprintf(stderr, "PAR: False\n");
     }
-#line 1456 "parser.tab.c"
+#line 1455 "parser.tab.c"
     break;
 
   case 11:
-#line 92 "parser/parser.y"
+#line 91 "parser/parser.y"
                                         {
         (yyval.pointer) = (yyvsp[-1].pointer);
         fprintf(stderr, "PAR: formula in Brackets\n");
     }
-#line 1465 "parser.tab.c"
+#line 1464 "parser.tab.c"
     break;
 
   case 12:
-#line 96 "parser/parser.y"
+#line 95 "parser/parser.y"
                                                       {
         (yyval.pointer) = (yyvsp[-1].pointer);
         fprintf(stderr, "PAR: formula in Brackets\n");
     }
-#line 1474 "parser.tab.c"
+#line 1473 "parser.tab.c"
     break;
 
   case 13:
-#line 100 "parser/parser.y"
+#line 99 "parser/parser.y"
                        {
         fprintf(stderr, "PAR: Negation\n");
         (yyval.pointer) = make_unary_node(NODE_NEGATION, (yyvsp[0].pointer));
     }
-#line 1483 "parser.tab.c"
+#line 1482 "parser.tab.c"
     break;
 
   case 14:
-#line 104 "parser/parser.y"
+#line 103 "parser/parser.y"
                                      {
         fprintf(stderr, "PAR: Negation\n");
         (yyval.pointer) = make_unary_node(NODE_NEGATION, (yyvsp[0].pointer));
     }
-#line 1492 "parser.tab.c"
+#line 1491 "parser.tab.c"
     break;
 
   case 15:
-#line 108 "parser/parser.y"
+#line 107 "parser/parser.y"
                                  {
         fprintf(stderr, "PAR: Equivalent\n");
         (yyval.pointer) = make_binary_node(NODE_EQUIVALENT, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1501 "parser.tab.c"
+#line 1500 "parser.tab.c"
     break;
 
   case 16:
-#line 112 "parser/parser.y"
+#line 111 "parser/parser.y"
                                                {
         fprintf(stderr, "PAR: Equivalent\n");
         (yyval.pointer) = make_binary_node(NODE_EQUIVALENT, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1510 "parser.tab.c"
+#line 1509 "parser.tab.c"
     break;
 
   case 17:
-#line 116 "parser/parser.y"
+#line 115 "parser/parser.y"
                                                {
         fprintf(stderr, "PAR: Equivalent\n");
         (yyval.pointer) = make_binary_node(NODE_EQUIVALENT, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1519 "parser.tab.c"
+#line 1518 "parser.tab.c"
     break;
 
   case 18:
-#line 120 "parser/parser.y"
+#line 119 "parser/parser.y"
                                                              {
         fprintf(stderr, "PAR: Equivalent\n");
         (yyval.pointer) = make_binary_node(NODE_EQUIVALENT, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1528 "parser.tab.c"
+#line 1527 "parser.tab.c"
     break;
 
   case 19:
-#line 124 "parser/parser.y"
+#line 123 "parser/parser.y"
                                   {
         fprintf(stderr, "PAR: Implication\n");
         (yyval.pointer) = make_binary_node(NODE_IMPLICATION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1537 "parser.tab.c"
+#line 1536 "parser.tab.c"
     break;
 
   case 20:
-#line 128 "parser/parser.y"
+#line 127 "parser/parser.y"
                                                 {
         fprintf(stderr, "PAR: Implication\n");
         (yyval.pointer) = make_binary_node(NODE_IMPLICATION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1546 "parser.tab.c"
+#line 1545 "parser.tab.c"
     break;
 
   case 21:
-#line 132 "parser/parser.y"
+#line 131 "parser/parser.y"
                                                 {
         fprintf(stderr, "PAR: Implication\n");
         (yyval.pointer) = make_binary_node(NODE_IMPLICATION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1555 "parser.tab.c"
+#line 1554 "parser.tab.c"
     break;
 
   case 22:
-#line 136 "parser/parser.y"
+#line 135 "parser/parser.y"
                                                               {
         fprintf(stderr, "PAR: Implication\n");
         (yyval.pointer) = make_binary_node(NODE_IMPLICATION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1564 "parser.tab.c"
+#line 1563 "parser.tab.c"
     break;
 
   case 23:
-#line 140 "parser/parser.y"
+#line 139 "parser/parser.y"
                                   {
         fprintf(stderr, "PAR: Conjunction\n");
         (yyval.pointer) = make_binary_node(NODE_CONJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1573 "parser.tab.c"
+#line 1572 "parser.tab.c"
     break;
 
   case 24:
-#line 144 "parser/parser.y"
+#line 143 "parser/parser.y"
                                                 {
         fprintf(stderr, "PAR: Conjunction\n");
         (yyval.pointer) = make_binary_node(NODE_CONJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1582 "parser.tab.c"
+#line 1581 "parser.tab.c"
     break;
 
   case 25:
-#line 148 "parser/parser.y"
+#line 147 "parser/parser.y"
                                                 {
         fprintf(stderr, "PAR: Conjunction\n");
         (yyval.pointer) = make_binary_node(NODE_CONJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1591 "parser.tab.c"
+#line 1590 "parser.tab.c"
     break;
 
   case 26:
-#line 152 "parser/parser.y"
+#line 151 "parser/parser.y"
                                                               {
         fprintf(stderr, "PAR: Conjunction\n");
         (yyval.pointer) = make_binary_node(NODE_CONJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1600 "parser.tab.c"
+#line 1599 "parser.tab.c"
     break;
 
   case 27:
-#line 156 "parser/parser.y"
+#line 155 "parser/parser.y"
                                   {
         fprintf(stderr, "PAR: Disjunction\n");
         (yyval.pointer) = make_binary_node(NODE_DISJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1609 "parser.tab.c"
+#line 1608 "parser.tab.c"
     break;
 
   case 28:
-#line 160 "parser/parser.y"
+#line 159 "parser/parser.y"
                                                 {
         fprintf(stderr, "PAR: Disjunction\n");
         (yyval.pointer) = make_binary_node(NODE_DISJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1618 "parser.tab.c"
+#line 1617 "parser.tab.c"
     break;
 
   case 29:
-#line 164 "parser/parser.y"
+#line 163 "parser/parser.y"
                                                 {
         fprintf(stderr, "PAR: Disjunction\n");
         (yyval.pointer) = make_binary_node(NODE_DISJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1627 "parser.tab.c"
+#line 1626 "parser.tab.c"
     break;
 
   case 30:
-#line 168 "parser/parser.y"
+#line 167 "parser/parser.y"
                                                               {
         fprintf(stderr, "PAR: Disjunction\n");
         (yyval.pointer) = make_binary_node(NODE_DISJUNCTION, (yyvsp[-2].pointer), (yyvsp[0].pointer));
     }
-#line 1636 "parser.tab.c"
+#line 1635 "parser.tab.c"
     break;
 
   case 31:
-#line 172 "parser/parser.y"
+#line 171 "parser/parser.y"
                                                    {
         fprintf(stderr, "PAR: All\n");
         (yyval.pointer) = make_binary_node(NODE_ALL, (void*)get_symbol_entry((yyvsp[-2].string)), (yyvsp[0].pointer));
     }
-#line 1645 "parser.tab.c"
+#line 1644 "parser.tab.c"
     break;
 
   case 32:
-#line 176 "parser/parser.y"
+#line 175 "parser/parser.y"
                                                                  {
         fprintf(stderr, "PAR: All\n");
         (yyval.pointer) = make_binary_node(NODE_ALL, (void*)get_symbol_entry((yyvsp[-2].string)), (yyvsp[0].pointer));
     }
-#line 1654 "parser.tab.c"
+#line 1653 "parser.tab.c"
     break;
 
   case 33:
-#line 180 "parser/parser.y"
+#line 179 "parser/parser.y"
                                                      {
         fprintf(stderr, "PAR: Exist\n");
         (yyval.pointer) = make_binary_node(NODE_EXIST, (void*)get_symbol_entry((yyvsp[-2].string)), (yyvsp[0].pointer));
     }
-#line 1663 "parser.tab.c"
+#line 1662 "parser.tab.c"
     break;
 
   case 34:
-#line 184 "parser/parser.y"
+#line 183 "parser/parser.y"
                                                                    {
         fprintf(stderr, "PAR: Exist\n");
         (yyval.pointer) = make_binary_node(NODE_EXIST, (void*)get_symbol_entry((yyvsp[-2].string)), (yyvsp[0].pointer));
     }
-#line 1672 "parser.tab.c"
+#line 1671 "parser.tab.c"
     break;
 
   case 35:
-#line 192 "parser/parser.y"
+#line 191 "parser/parser.y"
          {
         (yyval.pointer) = make_binary_node(NODE_ARGUMENT, (yyvsp[0].pointer), NULL);
     }
-#line 1680 "parser.tab.c"
+#line 1679 "parser.tab.c"
     break;
 
   case 36:
-#line 195 "parser/parser.y"
+#line 194 "parser/parser.y"
                                 {
         //set second child of term to term list to link the arguments
         void* new_argument = (void*)make_binary_node(NODE_ARGUMENT, (yyvsp[-2].pointer), (yyvsp[0].pointer));
         (yyval.pointer) = new_argument;
     }
-#line 1690 "parser.tab.c"
+#line 1689 "parser.tab.c"
     break;
 
   case 37:
-#line 203 "parser/parser.y"
+#line 202 "parser/parser.y"
                                                     {
         entry* identifier = get_symbol_entry((yyvsp[-3].string));
         if(identifier == NULL) {
@@ -1713,11 +1712,11 @@ yyreduce:
             return 1;
         }
     }
-#line 1717 "parser.tab.c"
+#line 1716 "parser.tab.c"
     break;
 
   case 38:
-#line 228 "parser/parser.y"
+#line 227 "parser/parser.y"
            {
         entry* identifier = get_symbol_entry((yyvsp[0].string));
         if(identifier == NULL) {
@@ -1737,20 +1736,20 @@ yyreduce:
             return 1;
         }
     }
-#line 1741 "parser.tab.c"
+#line 1740 "parser.tab.c"
     break;
 
   case 39:
-#line 248 "parser/parser.y"
+#line 247 "parser/parser.y"
     {
         (yyval.pointer) = make_number_node((yyvsp[0].number));
         fprintf(stderr, "PAR: Term: %d\n", (yyvsp[0].number));
     }
-#line 1750 "parser.tab.c"
+#line 1749 "parser.tab.c"
     break;
 
   case 40:
-#line 252 "parser/parser.y"
+#line 251 "parser/parser.y"
                             {
         node* node_pointer = (node*)(yyvsp[0].pointer);
         if(node_pointer->node_type == NODE_FUNCTION) {
@@ -1762,11 +1761,11 @@ yyreduce:
             return 1;
         }
     }
-#line 1766 "parser.tab.c"
+#line 1765 "parser.tab.c"
     break;
 
 
-#line 1770 "parser.tab.c"
+#line 1769 "parser.tab.c"
 
       default: break;
     }
@@ -1998,4 +1997,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 265 "parser/parser.y"
+#line 264 "parser/parser.y"

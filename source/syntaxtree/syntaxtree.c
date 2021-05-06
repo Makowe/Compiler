@@ -4,6 +4,7 @@
 #include "../symboltable/symboltable.h"
 #include "../additional/define.h"
 
+node* root_node = NULL;
 
 void* make_leaf_node(int node_type) {
     node* new_node = (node*) malloc(sizeof(node));
@@ -38,9 +39,17 @@ void* make_number_node(int number) {
     return make_unary_node(NODE_NUMBER, number_pointer);
 }
 
-void print_syntax_tree(void* root_node) {
+void set_root_node(void* node_pointer) {
+    root_node = (node*)node_pointer;
+}
+
+node* get_root_node() {
+    return root_node;
+}
+
+void print_syntax_tree() {
     fprintf(stdout, "\n--- PRINT SYNTAX TREE ---\n\n");
-    node* node_pointer = ((node*)root_node);
+    node* node_pointer = root_node;
     print_node_and_children(node_pointer, 0, 1);
 }
 

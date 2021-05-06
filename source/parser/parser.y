@@ -40,8 +40,7 @@ R_BRACKETS_O R_BRACKETS_C S_BRACKETS_O S_BRACKETS_C
 program:
     declarations formula SEMICOLON {
         fprintf(stdout, "--- PARSING FINISHED ---\n");
-        print_entries();
-        print_syntax_tree($2);
+        set_root_node($2);
     }
 ;
 

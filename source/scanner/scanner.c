@@ -496,8 +496,11 @@ char *yytext;
 #line 1 "scanner/scanner.l"
 #line 4 "scanner/scanner.l"
     #include "../parser/parser.tab.h"
-#line 500 "<stdout>"
-#line 501 "<stdout>"
+    #include "../symboltable/symboltable.h"
+    #include "../syntaxtree/syntaxtree.h"
+    #include "../printer/printer.h"
+#line 503 "<stdout>"
+#line 504 "<stdout>"
 
 #define INITIAL 0
 
@@ -714,9 +717,9 @@ YY_DECL
 		}
 
 	{
-#line 32 "scanner/scanner.l"
+#line 35 "scanner/scanner.l"
 
-#line 720 "<stdout>"
+#line 723 "<stdout>"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -776,21 +779,21 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 33 "scanner/scanner.l"
+#line 36 "scanner/scanner.l"
 {
 
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 37 "scanner/scanner.l"
+#line 40 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: COMMENT: %s\n", yytext); 
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 40 "scanner/scanner.l"
+#line 43 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: ROUND BRACKET OPEN\n"); 
     return R_BRACKETS_O;
@@ -798,7 +801,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 44 "scanner/scanner.l"
+#line 47 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: ROUND BRACKET CLOSE\n"); 
     return R_BRACKETS_C;
@@ -806,7 +809,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 48 "scanner/scanner.l"
+#line 51 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: SQUARE BRACKET OPEN\n"); 
     return S_BRACKETS_O;
@@ -814,7 +817,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 52 "scanner/scanner.l"
+#line 55 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: SQUARE BRACKET CLOSE\n"); 
     return S_BRACKETS_C;
@@ -822,7 +825,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 56 "scanner/scanner.l"
+#line 59 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: EQUIVALENT\n"); 
     return EQUIVALENT;
@@ -830,7 +833,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 60 "scanner/scanner.l"
+#line 63 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: IMPLICATION\n"); 
     return IMPLICATION;
@@ -838,7 +841,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 64 "scanner/scanner.l"
+#line 67 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: DISJUNCTION\n"); 
     return DISJUNCTION;
@@ -846,7 +849,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 68 "scanner/scanner.l"
+#line 71 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: CONJUNCTION\n"); 
     return CONJUNCTION;
@@ -854,7 +857,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 72 "scanner/scanner.l"
+#line 75 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: NEGATION\n"); 
     return NEGATION;
@@ -862,7 +865,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 76 "scanner/scanner.l"
+#line 79 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: COLON\n"); 
     return COLON;
@@ -870,7 +873,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 80 "scanner/scanner.l"
+#line 83 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: SEMICOLON\n"); 
     return SEMICOLON;
@@ -878,7 +881,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 84 "scanner/scanner.l"
+#line 87 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: COMMA\n"); 
     return COMMA;
@@ -886,7 +889,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 88 "scanner/scanner.l"
+#line 91 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: DECLARE\n");
     return DECLARE;
@@ -894,7 +897,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 92 "scanner/scanner.l"
+#line 95 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: PREDICATE\n"); 
     return PREDICATE;
@@ -902,7 +905,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 96 "scanner/scanner.l"
+#line 99 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: FUNCTION\n"); 
     return FUNCTION;
@@ -910,7 +913,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 100 "scanner/scanner.l"
+#line 103 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: VARIABLE\n"); 
     return VARIABLE;
@@ -918,7 +921,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 104 "scanner/scanner.l"
+#line 107 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: TRUE\n"); 
     return TRUE;
@@ -926,7 +929,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 108 "scanner/scanner.l"
+#line 111 "scanner/scanner.l"
 {
     fprintf(stderr, "LEX: FALSE\n");
     return FALSE;
@@ -934,7 +937,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 112 "scanner/scanner.l"
+#line 115 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: ALL\n"); 
     return ALL;
@@ -942,7 +945,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 116 "scanner/scanner.l"
+#line 119 "scanner/scanner.l"
 {
     fprintf(stderr, "LEX: EXIST\n");
     return EXIST;
@@ -950,7 +953,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 120 "scanner/scanner.l"
+#line 123 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: STRING: %s\n", yytext); 
     strcpy(yylval.string, yytext);
@@ -959,7 +962,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 125 "scanner/scanner.l"
+#line 128 "scanner/scanner.l"
 { 
     fprintf(stderr, "LEX: NUMBER: %s\n", yytext); 
     int num_int = atoi(yytext);
@@ -969,10 +972,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 133 "scanner/scanner.l"
+#line 136 "scanner/scanner.l"
 ECHO;
 	YY_BREAK
-#line 976 "<stdout>"
+#line 979 "<stdout>"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1977,23 +1980,36 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 133 "scanner/scanner.l"
+#line 136 "scanner/scanner.l"
 
 int main( int argc, char** argv) {
     ++argv, --argc;
     if(argc > 0) { 
         yyin = fopen( argv[0], "r");
         if(!yyin) {
-            fprintf(stderr, "Error while opening File");
+            fprintf(stderr, "Error while opening Input File");
             return 1;
         }
     }
     else {
-        yyin = stdin;
+        fprintf(stderr,"You have to type in a file name\nSyntax: ./pl input/example.pl\n");
+        return 1;
     }
     fprintf(stdout, "\n--- START PARSING ---\n\n");
     yyparse();
     fclose(yyin);
+    print_entries();
+    print_syntax_tree();
+
+    if(argc > 1) {
+        FILE* file = fopen(argv[1], "w+");
+        if(!file) {
+            fprintf(stderr, "Error while opening Output File");
+            return 1;
+        }
+        print_file(file);
+        fclose(file);
+    }
+
     return 0;
 }
-
