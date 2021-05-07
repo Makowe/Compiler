@@ -1753,11 +1753,11 @@ yyreduce:
                             {
         node* node_pointer = (node*)(yyvsp[0].pointer);
         if(node_pointer->node_type == NODE_FUNCTION) {
+            //function is interpreted as term 
             (yyval.pointer) = (yyvsp[0].pointer);
-            fprintf(stderr,"function is interpreted as term");
         }
         else {
-            fprintf(stderr,"predicate can't be interpreted as term");
+            fprintf(stderr,"PAR: predicate can't be interpreted as term");
             return 1;
         }
     }

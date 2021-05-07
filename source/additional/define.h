@@ -47,3 +47,10 @@ Node_Type % 2 = Type of Child 2
     0: Child 2 is another Node
     1: Child 2 is another Item in Argument list
 */
+
+#define PRECEDENCE_QUANTOR 5
+#define PRECEDENCE_NEGATION 4
+#define PRECEDENCE_CONJUNCTION 3
+#define PRECEDENCE_DISJUNCTION 2
+#define PRECEDENCE_IMPLICATION 1
+#define PRECENDECE_EQUIVALENT 0

@@ -9,5 +9,3 @@ DECLARE FUNCTION g : 2
 DECLARE VARIABLE x : int 
 DECLARE VARIABLE y : int
 DECLARE VARIABLE z : int
-
-~~P3(c,x,g(f(x),z));

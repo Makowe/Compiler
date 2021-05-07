@@ -6,7 +6,7 @@
 #include "../additional/define.h"
 
 void print_file(FILE* file);
-void print_nodes_in_file(FILE* file, node* current_node);
+void print_nodes_in_file(FILE* file, node* current_node, int precedence);
 void print_entries_in_file(FILE *file, entry* current_entry);
 
 #endif

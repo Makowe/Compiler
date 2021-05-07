@@ -5,6 +5,7 @@
     #include "../symboltable/symboltable.h"
     #include "../syntaxtree/syntaxtree.h"
     #include "../printer/printer.h"
+    #include "../optimizer/optimizer.h"
 %}
 
 EQUIVALENT      <->
@@ -153,8 +154,11 @@ int main( int argc, char** argv) {
     print_entries();
     print_syntax_tree();
 
+    fprintf(stderr,"now optimize");
+    optimize_tree();
+
     if(argc > 1) {
-        FILE* file = fopen(argv[1], "w+");
+        FILE* file = fopen(argv[1], "w");
         if(!file) {
             fprintf(stderr, "Error while opening Output File");
             return 1;

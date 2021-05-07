@@ -251,11 +251,11 @@ term:
     | function_or_predicate {
         node* node_pointer = (node*)$1;
         if(node_pointer->node_type == NODE_FUNCTION) {
+            //function is interpreted as term 
             $$ = $1;
-            fprintf(stderr,"function is interpreted as term");
         }
         else {
-            fprintf(stderr,"predicate can't be interpreted as term");
+            fprintf(stderr,"PAR: predicate can't be interpreted as term");
             return 1;
         }
     }
