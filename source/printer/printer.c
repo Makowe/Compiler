@@ -23,21 +23,19 @@ void print_nodes_in_file(FILE* file, node* current_node, int precedence) {
 
     switch(current_node->node_type) {
         case NODE_TRUE:
-            fprintf(file, " TRUE ");
+            fprintf(file, "TRUE");
             break;
         case NODE_FALSE:
-            fprintf(file, " FALSE ");
+            fprintf(file, "FALSE");
             break;
         case NODE_VARIABLE:
         case NODE_CONSTANT:
-            fprintf(stderr, "%s", ((entry*)current_node->child1)->identifier);
             fprintf(file, "%s", ((entry*)current_node->child1)->identifier);
             break;
         case NODE_NUMBER:
-            fprintf(file, " %d ", *(int*)current_node->child1);
+            fprintf(file, "%d", *(int*)current_node->child1);
             break;
         case NODE_NEGATION:
-            fprintf(stderr,"negation ");
             if(PRECEDENCE_NEGATION < precedence) fprintf(file, "(");
             fprintf(file, "~");
             print_nodes_in_file(file, (node*)current_node->child1, PRECEDENCE_NEGATION);
@@ -90,7 +88,6 @@ void print_nodes_in_file(FILE* file, node* current_node, int precedence) {
         case NODE_ARGUMENT:
             print_nodes_in_file(file, (node*)current_node->child1, 0);
             if((node*)current_node->child2 != NULL) fprintf(file, ",");
-            if((node*)current_node->child2 != NULL) fprintf(stderr, ",");
             print_nodes_in_file(file, (node*)current_node->child2, 0);
             break;
         case NODE_FUNCTION:

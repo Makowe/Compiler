@@ -1724,11 +1724,11 @@ yyreduce:
             return 1;
         }
         if(identifier->type == DECLARATION_VARIABLE ) {
-            fprintf(stderr, "PAR: Term of type variable or constant: %s\n", (yyvsp[0].string));
+            fprintf(stderr, "PAR: Term of type variable: %s\n", (yyvsp[0].string));
             (yyval.pointer) = make_binary_node(NODE_VARIABLE, (void*)get_symbol_entry((yyvsp[0].string)), NULL);
         }
         else if(identifier->type == DECLARATION_FUNCTION && identifier->arity == 0) {
-            fprintf(stderr, "PAR: Term of type variable or constant: %s\n", (yyvsp[0].string));
+            fprintf(stderr, "PAR: Term of type constant: %s\n", (yyvsp[0].string));
             (yyval.pointer) = make_binary_node(NODE_CONSTANT, (void*)get_symbol_entry((yyvsp[0].string)), NULL);
         }
         else {
