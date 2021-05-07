@@ -15,7 +15,9 @@ node* optimize_sub_tree(node* current_node) {
     if(current_node == NULL) { return current_node; }
 
     //OPTIMIZATION THE CURRENT NODE
+
     current_node = double_negation(current_node);
+    current_node = bool_negation(current_node);
 
 
     // OPTIMIZE CHILDREN NODES RECURSIVE 
@@ -32,20 +34,44 @@ node* optimize_sub_tree(node* current_node) {
     return current_node;
 }
 
-node* double_negation(node* current_node) {
+node* double_negation(node* parent_node) {
 
-    if(current_node == NULL) { return current_node; }
-    if(current_node->node_type == NODE_NEGATION) {
-        //check for child and grand child
-        node* child = (node*)current_node->child1;
+    if(parent_node == NULL) { return parent_node; }
+    if(parent_node->node_type == NODE_NEGATION) {
+
+        node* child = (node*)parent_node->child1;
         if(child->node_type == NODE_NEGATION) {
             node* grand_child = (node*)child->child1;
-            free(current_node);
+            free(parent_node);
             free(child);
-            fprintf(stderr, "OPT: removed double negation");
+            fprintf(stderr, "OPT: removed double negation\n");
             return grand_child;
         }
     }
-    return current_node;
+    // no double negation -> return self
+    return parent_node;
 }
 
+node* bool_negation(node* parent_node) {
+    if(parent_node == NULL) { return parent_node; }
+    if(parent_node->node_type == NODE_NEGATION) {
+
+        node* child = (node*)parent_node->child1;
+        if(child->node_type == NODE_TRUE) {
+            free(parent_node);
+            free(child);
+            node* new_node = make_leaf_node(NODE_FALSE);
+            fprintf(stderr, "OPT: ~TRUE -> FALSE \n");
+            return new_node;
+        }
+        if(child->node_type == NODE_FALSE) {
+            free(parent_node);
+            free(child);
+            node* new_node = make_leaf_node(NODE_TRUE);
+            fprintf(stderr, "OPT: ~FALSE -> TRUE \n");
+            return new_node;
+        }
+    }
+    // no double negation -> return self
+    return parent_node;
+}

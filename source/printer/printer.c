@@ -11,10 +11,7 @@ void print_file(FILE* file) {
     node* root_node = get_root_node();
     entry* first_entry = get_first_entry();
 
-    fprintf(stderr, "now printing in file\n");
-
     print_entries_in_file(file, first_entry);
-    fprintf(stderr, "now printing tree\n");
 
     print_nodes_in_file(file, root_node, 0);
     fprintf(file, ";");

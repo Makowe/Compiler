@@ -2002,7 +2002,6 @@ int main( int argc, char** argv) {
     print_entries();
     print_syntax_tree();
 
-    fprintf(stderr,"now optimize");
     optimize_tree();
 
     if(argc > 1) {
