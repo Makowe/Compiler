@@ -17,6 +17,7 @@ void print_file(FILE* file) {
     fprintf(file, ";");
 }
 
+//precedence is used to determine if brackets need to be placed
 void print_nodes_in_file(FILE* file, node* current_node, int precedence) {
 
     if(current_node == NULL) { return; }
